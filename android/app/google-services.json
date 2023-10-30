@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "118737248070",
+    "project_id": "poc-firebase-auth2023",
+    "storage_bucket": "poc-firebase-auth2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118737248070:android:3c2b5a34dd252ee690cf47",
+        "android_client_info": {
+          "package_name": "com.example.gym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrMpU-VnEsCTFGNOlE3ohthnUvyrMNtNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118737248070:android:2a5890d69baf0a7790cf47",
+        "android_client_info": {
+          "package_name": "com.example.happy_dog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrMpU-VnEsCTFGNOlE3ohthnUvyrMNtNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

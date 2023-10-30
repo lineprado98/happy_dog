@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDrgqvJDfbUqFBnQ8sTLcXWSb5FPVlHW3Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>118737248070</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.happyDog</string>
+	<key>PROJECT_ID</key>
+	<string>poc-firebase-auth2023</string>
+	<key>STORAGE_BUCKET</key>
+	<string>poc-firebase-auth2023.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:118737248070:ios:e6d0d02d0c4a086e90cf47</string>
+</dict>
+</plist>
