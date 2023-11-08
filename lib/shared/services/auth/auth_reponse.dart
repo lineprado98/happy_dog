@@ -1,21 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:happy_dog/shared/services/auth/auth_error_type_enum.dart';
 
 class AuthResponse {
   final dynamic data;
   final bool? success;
-  final bool? error;
+
   final String? message;
-  final int? errorCode;
-  AuthResponse(
-      {this.data, this.error, this.success, this.message, this.errorCode});
+  final AuthErrorType? errorCode;
+
+  AuthResponse({this.data, this.success, this.message, this.errorCode});
 
   factory AuthResponse.fromSuccess(UserCredential userCredential) {
-    return AuthResponse(
-        data: userCredential, success: true, error: false, message: null);
+    return AuthResponse(data: userCredential, success: true, message: null);
   }
 
   factory AuthResponse.fromError(FirebaseAuthException excpetion) {
-    return AuthResponse(
-        data: null, success: true, error: false, message: excpetion.message);
+    return AuthResponse(data: null, success: false, message: excpetion.message, errorCode: fromFirebaseException(excpetion));
   }
 }
