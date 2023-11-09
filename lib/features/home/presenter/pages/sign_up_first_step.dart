@@ -19,32 +19,40 @@ class _SignUpFirstStepState extends State<SignUpFirstStep> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Find your pawfect match', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).colorScheme.onBackground)),
-          Text('Join Luppy, the dog dating app that helps you find love for both you and your furry friend.'),
-          SizedBox(
-            height: 120,
+          Text('Find your pawfect match', style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+          const SizedBox(height: 20),
+          Text(
+            'Join Luppy, the dog dating app that helps you find love for both you and your furry friend.',
+            style: Theme.of(context).textTheme.bodySmall,
           ),
-          const Text(
-            'Email',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          const SizedBox(
+            height: 35,
           ),
-          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              'Email',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
           TextField(
-            cursorColor: Colors.white,
+            cursorColor: Theme.of(context).colorScheme.onBackground,
             onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
             controller: email,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(10),
               hintText: 'Enter your email address',
+              hintStyle: Theme.of(context).textTheme.bodySmall,
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
                   borderSide: BorderSide(
                     width: 1,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onBackground,
                     style: BorderStyle.solid,
                   )
                   // ),
                   ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
             ),
@@ -52,7 +60,7 @@ class _SignUpFirstStepState extends State<SignUpFirstStep> {
           const SizedBox(height: 40),
           Container(
             width: 400,
-            height: 60,
+            height: 50,
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [Theme.of(context).colorScheme.secondary, Theme.of(context).colorScheme.primary]),
               borderRadius: BorderRadius.circular(16),
@@ -60,7 +68,7 @@ class _SignUpFirstStepState extends State<SignUpFirstStep> {
             ),
             child: OutlinedButton(
               onPressed: () {
-                widget.controller.nextPage(duration: Duration(microseconds: 500), curve: Curves.easeIn);
+                widget.controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
               },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),

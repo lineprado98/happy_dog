@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SvgPicture.asset(
               'assets/svgs/welcome_dog.svg',
+              //  colorFilter: ColorFilter.mode(Colors.red, BlendMode.screen,),
               width: 200,
               height: 180,
             ),
