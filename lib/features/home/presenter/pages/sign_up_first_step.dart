@@ -1,17 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:happy_dog/features/auth/domain/entities/dog_informatial_entity.dart';
+import 'package:happy_dog/mixins/validations_mixin.dart';
+import 'package:happy_dog/shared/components/text_field_custom.dart';
 
-class SignUpFirstStep extends StatefulWidget {
+class SignUpFirstStep extends StatelessWidget with ValidationMixion {
   final PageController controller;
+  DogInformatial formDog;
 
-  const SignUpFirstStep({super.key, required this.controller});
+  SignUpFirstStep({super.key, required this.controller, required this.formDog});
 
-  @override
-  State<SignUpFirstStep> createState() => _SignUpFirstStepState();
-}
-
-class _SignUpFirstStepState extends State<SignUpFirstStep> {
   @override
   Widget build(BuildContext context) {
+    final globalkey = GlobalKey<FormState>();
     final TextEditingController email = TextEditingController();
     return Scaffold(
         body: Padding(
@@ -35,50 +37,54 @@ class _SignUpFirstStepState extends State<SignUpFirstStep> {
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
-          TextField(
-            cursorColor: Theme.of(context).colorScheme.onBackground,
-            onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
-            controller: email,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(10),
-              hintText: 'Enter your email address',
-              hintStyle: Theme.of(context).textTheme.bodySmall,
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(16)),
-                  borderSide: BorderSide(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    style: BorderStyle.solid,
-                  )
-                  // ),
+          Form(
+            key: globalkey,
+            child: Column(
+              children: [
+                TextFieldCustom(
+                  validations: isEmail,
+                  onSave: (text) => formDog = formDog.copyWith(name: text),
+                  onChanged: (text) {
+                    formDog = formDog.copyWith(name: text);
+                  },
+                  controller: email,
+                  initalValue: formDog.name,
+                  hint: 'email',
+                  label: 'email',
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  width: 400,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [Theme.of(context).colorScheme.secondary, Theme.of(context).colorScheme.primary]),
+                    borderRadius: BorderRadius.circular(16),
+                    shape: BoxShape.rectangle,
                   ),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-            ),
-          ),
-          const SizedBox(height: 40),
-          Container(
-            width: 400,
-            height: 50,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Theme.of(context).colorScheme.secondary, Theme.of(context).colorScheme.primary]),
-              borderRadius: BorderRadius.circular(16),
-              shape: BoxShape.rectangle,
-            ),
-            child: OutlinedButton(
-              onPressed: () {
-                widget.controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
-                side: const MaterialStatePropertyAll(BorderSide.none),
-                animationDuration: Duration.zero,
-              ),
-              child: Text(
-                'Continue',
-                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.w700),
-              ),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      globalkey.currentState?.validate();
+                      if (globalkey.currentState!.validate()) {
+                        controller.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn,
+                        );
+                      }
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+                      side: const MaterialStatePropertyAll(BorderSide.none),
+                      animationDuration: Duration.zero,
+                    ),
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

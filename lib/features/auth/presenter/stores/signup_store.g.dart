@@ -9,7 +9,24 @@ part of 'signup_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$SignupStore on _SignupStoreBase, Store {
-  late final _$isLoadingAtom = Atom(name: '_SignupStoreBase.isLoading', context: context);
+  late final _$messageErrorAtom =
+      Atom(name: '_SignupStoreBase.messageError', context: context);
+
+  @override
+  String? get messageError {
+    _$messageErrorAtom.reportRead();
+    return super.messageError;
+  }
+
+  @override
+  set messageError(String? value) {
+    _$messageErrorAtom.reportWrite(value, super.messageError, () {
+      super.messageError = value;
+    });
+  }
+
+  late final _$isLoadingAtom =
+      Atom(name: '_SignupStoreBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -24,7 +41,8 @@ mixin _$SignupStore on _SignupStoreBase, Store {
     });
   }
 
-  late final _$isErrorAtom = Atom(name: '_SignupStoreBase.isError', context: context);
+  late final _$isErrorAtom =
+      Atom(name: '_SignupStoreBase.isError', context: context);
 
   @override
   bool get isError {
@@ -39,11 +57,24 @@ mixin _$SignupStore on _SignupStoreBase, Store {
     });
   }
 
-  late final _$_SignupStoreBaseActionController = ActionController(name: '_SignupStoreBase', context: context);
+  late final _$_SignupStoreBaseActionController =
+      ActionController(name: '_SignupStoreBase', context: context);
+
+  @override
+  void setMessageError(String value) {
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setMessageError');
+    try {
+      return super.setMessageError(value);
+    } finally {
+      _$_SignupStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setIsLoading(bool value) {
-    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(name: '_SignupStoreBase.setIsLoading');
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setIsLoading');
     try {
       return super.setIsLoading(value);
     } finally {
@@ -53,7 +84,8 @@ mixin _$SignupStore on _SignupStoreBase, Store {
 
   @override
   void setIsError(bool value) {
-    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(name: '_SignupStoreBase.setIsError');
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setIsError');
     try {
       return super.setIsError(value);
     } finally {
@@ -64,6 +96,7 @@ mixin _$SignupStore on _SignupStoreBase, Store {
   @override
   String toString() {
     return '''
+messageError: ${messageError},
 isLoading: ${isLoading},
 isError: ${isError}
     ''';

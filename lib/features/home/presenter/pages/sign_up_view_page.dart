@@ -1,16 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:happy_dog/features/auth/domain/entities/dog_informatial_entity.dart';
 import 'package:happy_dog/features/home/presenter/pages/sign_up_first_step.dart';
 import 'package:happy_dog/features/home/presenter/pages/sign_up_second_step.dart';
 import 'package:happy_dog/features/home/presenter/widgets/dots_widget.dart';
 
-class SignUpViewPage extends StatefulWidget {
-  @override
-  State<SignUpViewPage> createState() => _SignUpViewPageState();
-}
-
-class _SignUpViewPageState extends State<SignUpViewPage> {
-  final controller = PageController(initialPage: 0);
+class SignUpViewPage extends StatelessWidget {
+  final controller = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+  final DogInformatial form = DogInformatial();
 
   final ValueNotifier<int> count = ValueNotifier<int>(0);
 
@@ -40,7 +42,16 @@ class _SignUpViewPageState extends State<SignUpViewPage> {
                       if (controller.page == 0) {
                         context.pop('/');
                       } else {
-                        controller.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+                        controller.keepPage;
+                        controller.animateToPage(
+                          0,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                        // controller.keepPage.hashCode;
+                        // controller.onDetach.hashCode;
+                        // controller.positions.first;
+                        // controller.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
                       }
                     },
                     icon: const Icon(
@@ -59,7 +70,13 @@ class _SignUpViewPageState extends State<SignUpViewPage> {
                   count.value = value;
                 },
                 controller: controller,
-                children: [SignUpFirstStep(controller: controller), SignUpSecondStep()],
+                children: [
+                  SignUpFirstStep(
+                    controller: controller,
+                    formDog: form,
+                  ),
+                  SignUpSecondStep()
+                ],
               ),
             ),
           ],
@@ -68,3 +85,25 @@ class _SignUpViewPageState extends State<SignUpViewPage> {
     );
   }
 }
+
+
+
+// class SignUpViewPage extends StatefulWidget {
+//   @override
+//   State<SignUpViewPage> createState() => _SignUpViewPageState();
+// }
+
+// class _SignUpViewPageState extends State<SignUpViewPage> {
+//   final controller = PageController(initialPage: 0, keepPage: true, viewportFraction: 1.0);
+//   final DogInformatial form = DogInformatial();
+//   final ValueNotifier<int> count = ValueNotifier<int>(0);
+//   final GlobalKey<State<PageView>> pageViewKey = GlobalKey();
+//   @override
+//   void initState() {
+//     super.initState();
+//     print('SIGNUP view: ${form.hashCode}');
+//     inspect(form);
+//   }
+
+ 
+ 
