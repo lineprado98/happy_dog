@@ -10,4 +10,6 @@ abstract class IAuthService {
   Future<AuthResponse> forgotPassword({required String email});
 
   Future<AuthResponse> deleteCurrentAccount();
+
+  Future<AuthResponse> userlogged();
 }

@@ -1,20 +1,17 @@
 import 'package:happy_dog/features/auth/domain/entities/user_credential_entity.dart';
-import 'package:happy_dog/features/auth/domain/usecases/create_account.dart';
+import 'package:happy_dog/features/auth/domain/usecases/reset_password_account.dart';
 import 'package:happy_dog/shared/erros/error_handler.dart';
-import 'package:happy_dog/shared/exceptions/my_exception.dart';
 import 'package:mobx/mobx.dart';
-part 'signup_store.g.dart';
+part 'reset_password_store.g.dart';
 
-class SignupStore = _SignupStoreBase with _$SignupStore;
+class ResetPasswordStore = _ResetPasswordStoreBase with _$ResetPasswordStore;
 
-abstract class _SignupStoreBase with Store {
-  final CreateAccount createAccount;
+abstract class _ResetPasswordStoreBase with Store {
+  final ResetPasswordAccount usecase;
+  _ResetPasswordStoreBase({required this.usecase});
 
-  _SignupStoreBase({
-    required this.createAccount,
-  });
   @observable
-  String? messageError;
+  String messageError = '';
 
   @action
   void setMessageError(String value) {
@@ -37,18 +34,16 @@ abstract class _SignupStoreBase with Store {
     isError = value;
   }
 
-  Future<void> create({required UserCredentialEntity user}) async {
+  @action
+  Future<void> resetPassword({required UserCredentialEntity value}) async {
     setIsLoading(true);
-    final (_, error) = await createAccount.create(user);
+    final (response, error) = await usecase.resetPasswordAccount(value);
 
-    if (error is MyException) {
+    if (error != null) {
       setIsError(true);
       final message = ErrorHandler.verifyError(type: error);
-
       setMessageError(message);
-      setIsLoading(false);
     }
-
     setIsLoading(false);
   }
 }

@@ -17,4 +17,7 @@ class AuthResponse {
   factory AuthResponse.fromError(FirebaseAuthException excpetion) {
     return AuthResponse(data: null, success: false, message: excpetion.message, errorCode: fromFirebaseException(excpetion));
   }
+  factory AuthResponse.froUser(User? user) {
+    return AuthResponse(data: user, success: true, message: null);
+  }
 }

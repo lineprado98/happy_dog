@@ -30,7 +30,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<(void, MyException?)> forgotPasswordAccount({required UserCredentialEntity credential}) async {
+  Future<(AuthResponse?, MyException?)> forgotPasswordAccount({required UserCredentialEntity credential}) async {
     final response = await service.forgotPassword(email: credential.email);
     if (response.success == false) {
       final exception = ErrorHandlerAuthentication.handleError(response.errorCode!);
@@ -57,5 +57,15 @@ class AuthRepository implements IAuthRepository {
       return (null, exception);
     }
     return (null, null);
+  }
+
+  @override
+  Future<(AuthResponse?, MyException?)> checkLoggedUser() async {
+    final response = await service.userlogged();
+    if (response.success == false) {
+      final exception = ErrorHandlerAuthentication.handleError(response.errorCode!);
+      return (null, exception);
+    }
+    return (response, null);
   }
 }

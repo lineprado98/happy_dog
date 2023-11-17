@@ -68,4 +68,16 @@ class FirebaseAuthService implements IAuthService {
       return AuthResponse(success: false, message: '');
     }
   }
+
+  @override
+  Future<AuthResponse> userlogged() async {
+    try {
+      final response = firebaseAuth.currentUser;
+      return AuthResponse.froUser(response);
+    } on FirebaseAuthException catch (e) {
+      return AuthResponse.fromError(e);
+    } on Exception catch (_) {
+      return AuthResponse(success: false, message: '');
+    }
+  }
 }

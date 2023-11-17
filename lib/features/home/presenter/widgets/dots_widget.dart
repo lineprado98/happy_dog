@@ -24,7 +24,7 @@ class DotsWidget extends StatelessWidget {
           ),
         ),
         height: 6,
-        width: 120,
+        width: 160,
       ),
     );
   }

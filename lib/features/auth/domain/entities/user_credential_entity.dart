@@ -1,7 +1,23 @@
 class UserCredentialEntity {
-  final String name;
-  final String email;
-  final String password;
-  UserCredentialEntity(
-      {required this.name, required this.email, required this.password});
+  String name;
+  String email;
+  String password;
+
+  UserCredentialEntity({
+    this.name = "",
+    this.email = "",
+    this.password = "",
+  });
+
+  UserCredentialEntity copyWith({
+    String? name,
+    String? email,
+    String? password,
+  }) {
+    return UserCredentialEntity(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
+  }
 }

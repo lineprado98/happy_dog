@@ -1,18 +1,20 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:happy_dog/features/auth/domain/entities/dog_informatial_entity.dart';
-import 'package:happy_dog/features/home/presenter/pages/sign_up_first_step.dart';
-import 'package:happy_dog/features/home/presenter/pages/sign_up_second_step.dart';
+import 'package:happy_dog/features/auth/domain/entities/user_credential_entity.dart';
+import 'package:happy_dog/features/auth/presenter/pages/sign_up_first_step.dart';
+import 'package:happy_dog/features/auth/presenter/pages/sign_up_second_step.dart';
+import 'package:happy_dog/features/auth/presenter/stores/signup_store.dart';
+
 import 'package:happy_dog/features/home/presenter/widgets/dots_widget.dart';
 
 class SignUpViewPage extends StatelessWidget {
+  final SignupStore store;
+  SignUpViewPage({required this.store});
   final controller = PageController(
     initialPage: 0,
     keepPage: true,
   );
-  final DogInformatial form = DogInformatial();
+  final ValueNotifier<UserCredentialEntity> form = ValueNotifier<UserCredentialEntity>(UserCredentialEntity());
 
   final ValueNotifier<int> count = ValueNotifier<int>(0);
 
@@ -22,14 +24,16 @@ class SignUpViewPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             ValueListenableBuilder<int>(
                 valueListenable: count,
                 builder: (context, int current, _) {
-                  return Row(
-                    children: List.generate(3, (index) {
-                      return DotsWidget(status: current >= index);
-                    }),
+                  return Center(
+                    child: Row(
+                      children: List.generate(2, (index) {
+                        return DotsWidget(status: current >= index);
+                      }),
+                    ),
                   );
                 }),
             const SizedBox(
@@ -45,13 +49,9 @@ class SignUpViewPage extends StatelessWidget {
                         controller.keepPage;
                         controller.animateToPage(
                           0,
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           curve: Curves.easeInOut,
                         );
-                        // controller.keepPage.hashCode;
-                        // controller.onDetach.hashCode;
-                        // controller.positions.first;
-                        // controller.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
                       }
                     },
                     icon: const Icon(
@@ -73,9 +73,9 @@ class SignUpViewPage extends StatelessWidget {
                 children: [
                   SignUpFirstStep(
                     controller: controller,
-                    formDog: form,
+                    form: form,
                   ),
-                  SignUpSecondStep()
+                  SignUpSecondStep(formUser: form, store: store)
                 ],
               ),
             ),
@@ -85,25 +85,3 @@ class SignUpViewPage extends StatelessWidget {
     );
   }
 }
-
-
-
-// class SignUpViewPage extends StatefulWidget {
-//   @override
-//   State<SignUpViewPage> createState() => _SignUpViewPageState();
-// }
-
-// class _SignUpViewPageState extends State<SignUpViewPage> {
-//   final controller = PageController(initialPage: 0, keepPage: true, viewportFraction: 1.0);
-//   final DogInformatial form = DogInformatial();
-//   final ValueNotifier<int> count = ValueNotifier<int>(0);
-//   final GlobalKey<State<PageView>> pageViewKey = GlobalKey();
-//   @override
-//   void initState() {
-//     super.initState();
-//     print('SIGNUP view: ${form.hashCode}');
-//     inspect(form);
-//   }
-
- 
- 

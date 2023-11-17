@@ -18,6 +18,8 @@ AuthErrorType fromFirebaseException(FirebaseAuthException e) {
     case 'invalid-password':
       return AuthErrorType.invalidPassword;
 
+    case 'INVALID_LOGIN_CREDENTIALS':
+      return AuthErrorType.invalidPassword;
     default:
       return AuthErrorType.unknown;
   }

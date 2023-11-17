@@ -12,6 +12,9 @@ class ErrorHandlerAuthentication {
 
       case AuthErrorType.tooManyRequests:
         return TooManyRequests();
+      case AuthErrorType.invalidPassword:
+        return InvalidPassword();
+
       case AuthErrorType.emailAlreadyInUse:
         return EmailAlreadyInUse();
 
